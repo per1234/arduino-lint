@@ -2,6 +2,7 @@
 name: Publish Nightly Build
 
 on:
+  push:
   schedule:
     # run every day at 1AM
     - cron: "0 1 * * *"
@@ -77,6 +78,7 @@ jobs:
         env:
           AC_USERNAME: ${{ secrets.AC_USERNAME }}
           AC_PASSWORD: ${{ secrets.AC_PASSWORD }}
+          AC_PROVIDER: 9M5NQMNWBJ
         run: |
           gon gon.config.hcl
 
@@ -112,27 +114,26 @@ jobs:
           name: ${{ env.ARTIFACT_NAME }}
           # to ensure compatibility with v1
           path: ${{ env.DIST_DIR }}
-
-      - name: Upload release files on Arduino downloads servers
-        uses: docker://plugins/s3
-        env:
-          PLUGIN_SOURCE: "${{ env.DIST_DIR }}/*"
-          PLUGIN_TARGET: "${{ env.AWS_PLUGIN_TARGET }}nightly"
-          PLUGIN_STRIP_PREFIX: "${{ env.DIST_DIR }}/"
-          PLUGIN_BUCKET: ${{ secrets.DOWNLOADS_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Report failure
-        if: failure()
-        uses: masci/datadog@v1
-        with:
-          api-key: ${{ secrets.DD_API_KEY }}
-          events: |
-            - title: "Arduino CLI nightly build failed"
-              text: "Nightly build workflow has failed"
-              alert_type: "error"
-              host: ${{ github.repository }}
-              tags:
-                - "project:${{ env.PROJECT_NAME }}"
-                - "workflow:${{ github.workflow }}"
+#       - name: Upload release files on Arduino downloads servers
+#         uses: docker://plugins/s3
+#         env:
+#           PLUGIN_SOURCE: "${{ env.DIST_DIR }}/*"
+#           PLUGIN_TARGET: "${{ env.AWS_PLUGIN_TARGET }}nightly"
+#           PLUGIN_STRIP_PREFIX: "${{ env.DIST_DIR }}/"
+#           PLUGIN_BUCKET: ${{ secrets.DOWNLOADS_BUCKET }}
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#
+#       - name: Report failure
+#         if: failure()
+#         uses: masci/datadog@v1
+#         with:
+#           api-key: ${{ secrets.DD_API_KEY }}
+#           events: |
+#             - title: "Arduino CLI nightly build failed"
+#               text: "Nightly build workflow has failed"
+#               alert_type: "error"
+#               host: ${{ github.repository }}
+#               tags:
+#                 - "project:${{ env.PROJECT_NAME }}"
+#                 - "workflow:${{ github.workflow }}"

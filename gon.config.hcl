@@ -4,7 +4,7 @@ source = ["dist/arduino-lint_osx_darwin_amd64/arduino-lint"]
 bundle_id = "cc.arduino.arduino-lint"
 
 sign {
-  application_identity = "Developer ID Application: ARDUINO SA (7KT7ZWMCJT)"
+  application_identity = "Developer ID Application: Per Tillisch (9M5NQMNWBJ)"
 }
 
 # Ask Gon for zip output to force notarization process to take place.
