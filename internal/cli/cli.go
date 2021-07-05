@@ -31,7 +31,7 @@ func Root() *cobra.Command {
 		Run:                   command.ArduinoLint,
 	}
 
-	rootCommand.PersistentFlags().String("compliance", "specification", "Configure how strict the tool is. Can be {strict|specification|permissive}")
+	rootCommand.PersistentFlags().String("compliance", "specification", "fooConfigure how strict the tool is. Can be {strict|specification|permissive}")
 	rootCommand.PersistentFlags().String("format", "text", "The output format can be {text|json}.")
 	rootCommand.PersistentFlags().String("library-manager", "", "Configure the rules for libraries in the Arduino Library Manager index. Can be {submit|update|false}.\nsubmit: Also run additional rules required to pass before a library is accepted for inclusion in the index.\nupdate: Also run additional rules required to pass before new releases of a library already in the index are accepted.\nfalse: Don't run any Library Manager-specific rules.")
 	rootCommand.PersistentFlags().String("project-type", "all", "Only lint projects of the specified type and their subprojects. Can be {sketch|library|platform|all}.")
