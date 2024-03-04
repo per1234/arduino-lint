@@ -101,7 +101,7 @@ jobs:
       - name: Set up Codecov upload token
         if: runner.os == 'Linux'
         run: |
-          if [[ "${{ github.repository }}" == "arduino/arduino-lint" ]]; then
+          if [[ "${{ github.repository }}" == "per1234/arduino-lint" ]]; then
             # In order to avoid uploads of data from forks, only use the token for runs in the parent repo.
             # Token is intentionally exposed.
             # See: https://community.codecov.com/t/upload-issues-unable-to-locate-build-via-github-actions-api/3954
@@ -118,5 +118,5 @@ jobs:
         with:
           file: ${{ matrix.module.path }}coverage_unit.txt
           flags: ${{ matrix.module.codecov-flags }}
-          fail_ci_if_error: ${{ github.repository == 'arduino/arduino-lint' }}
+          fail_ci_if_error: ${{ github.repository == 'per1234/arduino-lint' }}
           token: ${{ env.CODECOV_TOKEN }}
