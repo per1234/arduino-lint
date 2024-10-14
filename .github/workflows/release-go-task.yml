@@ -110,7 +110,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: ${{ env.ARTIFACT_NAME }}-*
+          pattern: ${{ env.ARTIFACT_PREFIX }}*
           merge-multiple: true
           path: ${{ env.DIST_DIR }}
 
