@@ -150,7 +150,7 @@ jobs:
           bundle_id = "cc.arduino.${{ env.PROJECT_NAME }}"
 
           sign {
-            application_identity = "Developer ID Application: ARDUINO SA (7KT7ZWMCJT)"
+            application_identity = "Developer ID Application: Per Tillisch (9M5NQMNWBJ)"
           }
 
           # Ask Gon for zip output to force notarization process to take place.
@@ -235,12 +235,12 @@ jobs:
           # (all the files we need are in the DIST_DIR root)
           artifacts: ${{ env.DIST_DIR }}/*
 
-      - name: Upload release files on Arduino downloads servers
-        uses: docker://plugins/s3
-        env:
-          PLUGIN_SOURCE: "${{ env.DIST_DIR }}/*"
-          PLUGIN_TARGET: ${{ env.AWS_PLUGIN_TARGET }}
-          PLUGIN_STRIP_PREFIX: "${{ env.DIST_DIR }}/"
-          PLUGIN_BUCKET: ${{ secrets.DOWNLOADS_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # - name: Upload release files on Arduino downloads servers
+      #   uses: docker://plugins/s3
+      #   env:
+      #     PLUGIN_SOURCE: "${{ env.DIST_DIR }}/*"
+      #     PLUGIN_TARGET: ${{ env.AWS_PLUGIN_TARGET }}
+      #     PLUGIN_STRIP_PREFIX: "${{ env.DIST_DIR }}/"
+      #     PLUGIN_BUCKET: ${{ secrets.DOWNLOADS_BUCKET }}
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
