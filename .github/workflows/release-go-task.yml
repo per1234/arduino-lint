@@ -76,7 +76,7 @@ jobs:
           path: ${{ env.DIST_DIR }}
 
   notarize-macos:
-    name: Notarize ${{ matrix.build.folder-suffix }}
+    name: Notarize ${{ matrix.artifact.folder-suffix }}
     runs-on: macos-latest
     needs: create-release-artifacts
     permissions:
@@ -87,7 +87,7 @@ jobs:
 
     strategy:
       matrix:
-        build:
+        artifact:
           - folder-suffix: darwin_amd64
             package-suffix: "macOS_64bit.tar.gz"
           - folder-suffix: darwin_arm64
@@ -97,9 +97,9 @@ jobs:
       - name: Set environment variables
         run: |
           # See: https://docs.github.com/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-environment-variable
-          echo "BUILD_FOLDER=${{ env.PROJECT_NAME }}_osx_${{ matrix.build.folder-suffix }}" >> "$GITHUB_ENV"
+          echo "BUILD_FOLDER=${{ env.PROJECT_NAME }}_osx_${{ matrix.artifact.folder-suffix }}" >> "$GITHUB_ENV"
           TAG="${GITHUB_REF/refs\/tags\//}"
-          echo "PACKAGE_FILENAME=${{ env.PROJECT_NAME }}_${TAG}_${{ matrix.build.package-suffix }}" >> $GITHUB_ENV
+          echo "PACKAGE_FILENAME=${{ env.PROJECT_NAME }}_${TAG}_${{ matrix.artifact.package-suffix }}" >> $GITHUB_ENV
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -182,7 +182,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           if-no-files-found: error
-          name: ${{ env.ARTIFACT_PREFIX }}notarized-${{ matrix.build.folder-suffix }}
+          name: ${{ env.ARTIFACT_PREFIX }}notarized-${{ matrix.artifact.folder-suffix }}
           path: ${{ env.DIST_DIR }}/${{ env.PACKAGE_FILENAME }}
 
   create-release:
