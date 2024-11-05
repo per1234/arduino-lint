@@ -228,7 +228,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          bodyFile: ${{ env.DIST_DIR }}/CHANGELOG.md
+          # bodyFile: ${{ env.DIST_DIR }}/CHANGELOG.md
           draft: false
           prerelease: ${{ steps.prerelease.outputs.IS_PRE }}
           # NOTE: "Artifact is a directory" warnings are expected and don't indicate a problem
