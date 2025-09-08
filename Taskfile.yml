@@ -104,6 +104,7 @@ tasks:
           GO_MODULE_PATH: ./ruledocsgen
       - task: markdown:lint
       - task: markdown:check-links
+      - task: poetry:validate
       - task: python:lint
       - task: shell:check
         vars:
@@ -141,6 +142,7 @@ tasks:
         vars:
           GO_MODULE_PATH: ./ruledocsgen
       - task: markdown:fix
+      - task: poetry:sync
       - task: python:format
       - task: shell:format
         vars:
@@ -663,6 +665,16 @@ tasks:
         poetry install \
           {{if .POETRY_GROUPS}} --only {{.POETRY_GROUPS}} {{end}}
 
+  # Source: https://github.com/arduino/tooling-project-assets/blob/main/workflow-templates/assets/check-poetry-task/Taskfile.yml
+  poetry:sync:
+    desc: Sync Poetry lockfile
+    deps:
+      - task: poetry:install
+    cmds:
+      - |
+        poetry lock \
+          --no-cache
+
   # Source: https://github.com/arduino/tooling-project-assets/blob/main/workflow-templates/assets/poetry-task/Taskfile.yml
   poetry:update-deps:
     desc: Update all dependencies managed by Poetry to their newest versions
@@ -670,6 +682,17 @@ tasks:
       - task: poetry:install
     cmds:
       - poetry update
+
+  # Source: https://github.com/arduino/tooling-project-assets/blob/main/workflow-templates/assets/check-poetry-task/Taskfile.yml
+  poetry:validate:
+    desc: Validate Poetry configuration
+    deps:
+      - task: poetry:install
+    cmds:
+      - |
+        poetry check \
+          --lock \
+          --strict
 
   # Source: https://github.com/arduino/tooling-project-assets/blob/main/workflow-templates/assets/check-python-task/Taskfile.yml
   python:format:
