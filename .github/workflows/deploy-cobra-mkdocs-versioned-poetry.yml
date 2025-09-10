@@ -86,6 +86,10 @@ jobs:
           task poetry:install-deps \
             POETRY_GROUPS=dev
 
+      - name: Show siteversion.py output
+        id: determine-versioning
+        run: poetry run python docs/siteversion/siteversion.py
+
       - name: Determine versioning parameters
         id: determine-versioning
         run: echo "data=$(poetry run python docs/siteversion/siteversion.py)" >>$GITHUB_OUTPUT
