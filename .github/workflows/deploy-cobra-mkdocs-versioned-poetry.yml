@@ -87,7 +87,6 @@ jobs:
             POETRY_GROUPS=dev
 
       - name: Show siteversion.py output
-        id: determine-versioning
         run: poetry run python docs/siteversion/siteversion.py
 
       - name: Determine versioning parameters
