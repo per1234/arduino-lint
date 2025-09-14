@@ -34,7 +34,7 @@ from git import Repo
 # version that happens on the landing page should be updated or not.
 
 
-DEV_BRANCHES = ["test-sync"]  # Name of the branch used for the "dev" website source content
+DEV_BRANCHES = ["main"]  # Name of the branch used for the "dev" website source content
 
 
 def get_docs_version(ref_name, release_branches):
