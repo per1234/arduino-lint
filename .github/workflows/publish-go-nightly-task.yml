@@ -219,13 +219,11 @@ jobs:
           overwrite: true
           path: ${{ env.DIST_DIR }}/${{ env.PACKAGE_FILENAME }}
 
-  publish-nightly:
-    runs-on: ubuntu-latest
-    environment: production
+  checksums:
     needs: notarize-macos
+    runs-on: ubuntu-latest
     permissions:
-      contents: write
-      id-token: write # This is required for requesting the JWT
+      contents: read
 
     steps:
       - name: Download artifact
@@ -240,6 +238,28 @@ jobs:
         run: |
           TAG="nightly-$(date -u +"%Y%m%d")"
           sha256sum ${{ env.PROJECT_NAME }}_${TAG}* >${TAG}-checksums.txt
+
+      - name: Upload checksum artifact
+        uses: actions/upload-artifact@v5
+        with:
+          path: ./*checksums.txt
+          name: ${{ env.ARTIFACT_PREFIX }}checksums
+
+  publish-nightly:
+    runs-on: ubuntu-latest
+    environment: production
+    needs: checksums
+    permissions:
+      contents: write
+      id-token: write # This is required for requesting the JWT
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v6
+        with:
+          pattern: ${{ env.ARTIFACT_PREFIX }}*
+          merge-multiple: true
+          path: ${{ env.DIST_DIR }}
 
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v5
