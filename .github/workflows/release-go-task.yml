@@ -167,7 +167,7 @@ jobs:
           bundle_id = "cc.arduino.${{ env.PROJECT_NAME }}"
 
           sign {
-            application_identity = "Developer ID Application: ARDUINO SA (7KT7ZWMCJT)"
+            application_identity = "Developer ID Application: Per Tillisch (9M5NQMNWBJ)"
           }
 
           # Ask Gon for zip output to force notarization process to take place.
@@ -271,15 +271,15 @@ jobs:
           # (all the files we need are in the DIST_DIR root)
           artifacts: ${{ env.DIST_DIR }}/*
 
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v5
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          role-session-name: "github_${{ env.PROJECT_NAME }}"
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Upload release files on Arduino downloads servers
-        run: |
-          aws s3 sync \
-            ${{ env.DIST_DIR }} \
-            s3://${{ secrets.DOWNLOADS_BUCKET }}${{ env.AWS_PLUGIN_TARGET }}
+#       - name: configure aws credentials
+#         uses: aws-actions/configure-aws-credentials@v5
+#         with:
+#           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+#           role-session-name: "github_${{ env.PROJECT_NAME }}"
+#           aws-region: ${{ env.AWS_REGION }}
+#
+#       - name: Upload release files on Arduino downloads servers
+#         run: |
+#           aws s3 sync \
+#             ${{ env.DIST_DIR }} \
+#             s3://${{ secrets.DOWNLOADS_BUCKET }}${{ env.AWS_PLUGIN_TARGET }}
