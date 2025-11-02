@@ -226,7 +226,7 @@ jobs:
       contents: read
 
     steps:
-      - name: Download artifact
+      - name: Download artifacts
         uses: actions/download-artifact@v6
         with:
           pattern: ${{ env.ARTIFACT_PREFIX }}*
@@ -257,7 +257,7 @@ jobs:
       - name: Determine whether publishing to AWS is possible
         id: aws-determination
         run: |
-          echo "::set-output name=publish::${{ secrets.AWS_ROLE_TO_ASSUME != '' }}"
+          echo "publish=${{ secrets.AWS_ROLE_TO_ASSUME != '' }}" >>$GITHUB_OUTPUT
 
       - name: Download artifact
         if: steps.aws-determination.outputs.publish == 'true'

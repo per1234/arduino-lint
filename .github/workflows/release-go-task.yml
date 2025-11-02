@@ -224,7 +224,7 @@ jobs:
       - name: Determine whether publishing to AWS is possible
         id: aws-determination
         run: |
-          echo "::set-output name=publish::${{ secrets.AWS_ROLE_TO_ASSUME != '' }}"
+          echo "publish=${{ secrets.AWS_ROLE_TO_ASSUME != '' }}" >>$GITHUB_OUTPUT
 
       - name: Download artifact
         uses: actions/download-artifact@v6
