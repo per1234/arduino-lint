@@ -165,8 +165,7 @@ jobs:
           source = ["${{ env.DIST_DIR }}/${{ env.BUILD_FOLDER }}/${{ env.PROJECT_NAME }}"]
           bundle_id = "cc.arduino.${{ env.PROJECT_NAME }}"
 
-          sign {
-          }
+          sign {}
 
           # Ask Gon for zip output to force notarization process to take place.
           # The CI will ignore the zip output, using the signed binary only.
