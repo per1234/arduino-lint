@@ -151,16 +151,6 @@ jobs:
             -k "${{ env.KEYCHAIN_PASSWORD }}" \
             "${{ env.KEYCHAIN }}"
 
-      - name: Install gon for code signing and app notarization
-        run: |
-          wget \
-            -q \
-            https://github.com/Bearer/gon/releases/download/v0.0.27/gon_macos.zip
-
-          unzip \
-            gon_macos.zip \
-            -d /usr/local/bin
-
       - name: Write gon config to file
         # gon does not allow env variables in config file (https://github.com/mitchellh/gon/issues/20)
         run: |
@@ -187,7 +177,8 @@ jobs:
           AC_PASSWORD: ${{ secrets.AC_PASSWORD }}
           AC_PROVIDER: ${{ secrets.AC_PROVIDER }}
         run: |
-          gon "${{ env.GON_CONFIG_PATH }}"
+          go tool \
+            github.com/bearer/gon/cmd/gon "${{ env.GON_CONFIG_PATH }}"
 
       - name: Re-package binary
         working-directory: ${{ env.DIST_DIR }}
