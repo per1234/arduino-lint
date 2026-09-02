@@ -1273,14 +1273,14 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "poetry"
-version = "2.4.1"
+version = "2.4.2"
 description = "Python dependency management and packaging made easy."
 optional = false
 python-versions = "<4.0,>=3.10"
 groups = ["pipx"]
 files = [
-    {file = "poetry-2.4.1-py3-none-any.whl", hash = "sha256:a91f13279a3c9add0d12c5ca5c7cb173622930a5c8272fee68c751cb5c72f951"},
-    {file = "poetry-2.4.1.tar.gz", hash = "sha256:189399b80347ecf908244b2564a7b1d92b648fa1fe2a204888f94a472fec0cac"},
+    {file = "poetry-2.4.2-py3-none-any.whl", hash = "sha256:a506d6ff7fcc54a3472b2618145b8e4a1ef8d76d52836d41b813fa1b36083a08"},
+    {file = "poetry-2.4.2.tar.gz", hash = "sha256:e547fa69196fc109ee0900e233222732b08b8732c4345252a34d68968c0498f2"},
 ]
 
 [package.dependencies]
@@ -2133,4 +2133,4 @@ cffi = ["cffi (>=1.17) ; python_version >= \"3.13\" and platform_python_implemen
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.14"
-content-hash = "f63fad966af038865a312a154b39860936b468940a90ef25119ead2feee74c2e"
+content-hash = "c3dc1e0fb0337e5930aa24aaeb69a62e1e8b59d1fd88fef340c7e744645f685d"
