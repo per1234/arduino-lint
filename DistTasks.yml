@@ -19,11 +19,7 @@ version: "3"
 
 vars:
   CONTAINER: "docker.elastic.co/beats-dev/golang-crossbuild"
-  GO_VERSION:
-    sh: |
-      go list \
-        -f {{"{{.GoVersion}}"}} \
-        -m
+  GO_VERSION: "1.25.2"
   # See: https://pkg.go.dev/cmd/cgo#:~:text=by%20setting%20the-,CGO_ENABLED,-environment%20variable%20when
   CGO_ENABLED: "0"
 
@@ -315,7 +311,7 @@ tasks:
       #
       # Until there is a fix released we must use a recent gcc for Linux_ARMv6 build, so for this
       # build we select the debian10 based container.
-      CONTAINER_TAG: "{{.GO_VERSION}}-armel-debian12"
+      CONTAINER_TAG: "{{.GO_VERSION}}-armel-debian10"
       PACKAGE_PLATFORM: "Linux_ARMv6"
       PACKAGE_NAME: "{{.PROJECT_NAME}}_{{.VERSION}}_{{.PACKAGE_PLATFORM}}.tar.gz"
 
@@ -357,7 +353,7 @@ tasks:
       PLATFORM_DIR: "{{.PROJECT_NAME}}_linux_arm_64"
       BUILD_COMMAND: "go build -o {{.DIST_DIR}}/{{.PLATFORM_DIR}}/{{.PROJECT_NAME}} {{.LDFLAGS}}"
       BUILD_PLATFORM: "linux/arm64"
-      CONTAINER_TAG: "{{.GO_VERSION}}-base-arm-debian10"
+      CONTAINER_TAG: "{{.GO_VERSION}}-arm"
       PACKAGE_PLATFORM: "Linux_ARM64"
       PACKAGE_NAME: "{{.PROJECT_NAME}}_{{.VERSION}}_{{.PACKAGE_PLATFORM}}.tar.gz"
 
